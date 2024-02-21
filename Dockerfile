@@ -1,5 +1,3 @@
-#
-#
 FROM node:18.16.1-alpine3.18
 
 RUN mkdir -p /app
