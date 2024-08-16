@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 function Task(props) {
 	console.log(props);
 
@@ -18,7 +20,7 @@ function Task(props) {
 		);
 
 	}
-	
+
 	function o_Click(){
 		//find the task we want to update and update it
 		props.setTasks(tasks=> tasks.filter(t => t.id !== props.id)
@@ -41,10 +43,29 @@ function Task(props) {
 }
 
 function List(props) {
+	const [newTask, setNewTask] = useState("");
+	function text_Change(event)
+	{
+		setNewTask(event.target.value);
+	}
+	function add_Click()
+	{
+		props.setTasks(tasks=>[...tasks,{
+									id:tasks.length+1,
+									description:newTask,
+									completed:false
+										}]
 
+		);
+	}
 	return (
 		<div>
 			<h1>{ props.heading }</h1>
+			<b>Add Task</b>
+			<input type="text"
+					placeholder="Add a new task here..."
+					onChange={text_Change}/>
+			<button type="button" onClick={add_Click}>Add</button>
 			<ul>
 				{ props.tasks.map(t => 
 					<Task
